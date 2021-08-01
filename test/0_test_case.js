@@ -28,10 +28,28 @@ contract('vegascoin', function(accounts) {
         console.log(`${name} :: ${symbol} :: ${decimals} :: ${initialSupply} :: ${feeReceiver} :: ${tokenOwnerAddress}`)
    })
 
-   /* Test Use Cases */
    //transferMinterRole(address newMinter)
-   //burn(uint256 value)
+   it("Contract Owner should be initial balance", async() => {
+    vcoin = await VegasCoin.deployed(name, symbol, decimals, initialSupply, feeReceiver, tokenOwnerAddress);
+    let balance = await vcoin.balanceOf(tokenOwnerAddress);
+    console.log(`Initial Balance of Minter ${balance}`)
+   })
+
+   it("Must be able to burn certain amount", async() => {
+    vcoin = await VegasCoin.deployed(name, symbol, decimals, initialSupply, feeReceiver, tokenOwnerAddress);
+    await vcoin.burn(5000);
+    let balance = await vcoin.balanceOf(tokenOwnerAddress);
+    console.log(`Balance after burn ${balance}`)
+   })
+
    //mint
+   it("Must add to supply after minting", async() => {
+    vcoin = await VegasCoin.deployed(name, symbol, decimals, initialSupply, feeReceiver, tokenOwnerAddress);
+    await vcoin.mint(tokenOwnerAddress, 5000)
+    let balance = await vcoin.balanceOf(tokenOwnerAddress);
+    console.log(`Balance after minting ${balance}`)
+   })
+
    //Step one random value
    //Step two random value
    //Step three generate percentage of distribution
