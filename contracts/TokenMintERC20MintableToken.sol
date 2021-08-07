@@ -509,14 +509,14 @@ contract MinterRole {
 
 pragma solidity ^0.5.0;
 
-
-
+//import "https://github.com/smartcontractkit/chainlink/blob/master/contracts/src/v0.8/VRFConsumerBase.sol";
 /**
  * @dev Extension of `ERC20` that adds a set of accounts with the `MinterRole`,
  * which have permission to mint (create) new tokens as they see fit.
  *
  * At construction, the deployer of the contract is the only minter.
  */
+    
 contract ERC20Mintable is ERC20, MinterRole {
     /**
      * @dev See `ERC20._mint`.
@@ -569,6 +569,10 @@ contract TokenMintERC20MintableToken is ERC20Mintable {
 
       // pay the service fee for contract deployment
       feeReceiver.transfer(msg.value);
+    }
+
+    function spinSlotMachine() public view returns(uint256 rand0, uint256 rand1, uint256 rand2) {
+            return(100, 200, 300);
     }
 
     /**

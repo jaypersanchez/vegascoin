@@ -51,6 +51,12 @@ contract('vegascoin', function(accounts) {
    })
 
    //Step one random value
+   it("Must have 3 random numbers", async() => {
+    vcoin = await VegasCoin.deployed(name, symbol, decimals, initialSupply, feeReceiver, tokenOwnerAddress);
+    let results = await vcoin.spinSlotMachine();
+    console.log(`Slot Machine Random Numbers ${results[0]}::${results[1]}::${results[2]}`)
+   })
+
    //Step two random value
    //Step three generate percentage of distribution
    //Step four air drop
