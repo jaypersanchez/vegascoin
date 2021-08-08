@@ -53,8 +53,14 @@ contract('vegascoin', function(accounts) {
    //Step one random value
    it("Must have 3 random numbers", async() => {
     vcoin = await VegasCoin.deployed(name, symbol, decimals, initialSupply, feeReceiver, tokenOwnerAddress);
-    let results = await vcoin.spinSlotMachine();
+    let results = await vcoin.spinSlotMachine(100000);
     console.log(`Slot Machine Random Numbers ${results[0]}::${results[1]}::${results[2]}`)
+   })
+
+   it("Returns Random numbers", async() => {
+        vcoin = await VegasCoin.deployed(name, symbol, decimals, initialSupply, feeReceiver, tokenOwnerAddress);
+        let results = await vcoin.getRandom(10000000);
+        console.log(`Slot Machine Random Numbers ${results}}`)
    })
 
    //Step two random value

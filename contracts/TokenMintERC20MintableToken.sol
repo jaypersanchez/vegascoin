@@ -4,7 +4,7 @@
 
 // File: contracts\open-zeppelin-contracts\token\ERC20\IERC20.sol
 
-pragma solidity ^0.5.0;
+pragma solidity >=0.5.0<=0.8.0;
 
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP. Does not include
@@ -83,7 +83,7 @@ interface IERC20 {
 
 // File: contracts\open-zeppelin-contracts\math\SafeMath.sol
 
-pragma solidity ^0.5.0;
+pragma solidity >=0.5.0<=0.8.0;
 
 /**
  * @dev Wrappers over Solidity's arithmetic operations with added overflow
@@ -193,7 +193,7 @@ library SafeMath {
 
 // File: contracts\open-zeppelin-contracts\token\ERC20\ERC20.sol
 
-pragma solidity ^0.5.0;
+pragma solidity >=0.5.0<=0.8.0;
 
 
 
@@ -423,7 +423,7 @@ contract ERC20 is IERC20 {
 
 // File: contracts\open-zeppelin-contracts\access\Roles.sol
 
-pragma solidity ^0.5.0;
+pragma solidity >=0.5.0<=0.8.0;
 
 /**
  * @title Roles
@@ -462,7 +462,7 @@ library Roles {
 
 // File: contracts\open-zeppelin-contracts\access\roles\MinterRole.sol
 
-pragma solidity ^0.5.0;
+pragma solidity >=0.5.0<=0.8.0;
 
 
 contract MinterRole {
@@ -507,7 +507,7 @@ contract MinterRole {
 
 // File: contracts\open-zeppelin-contracts\token\ERC20\ERC20Mintable.sol
 
-pragma solidity ^0.5.0;
+pragma solidity >=0.5.0<=0.8.0;
 
 //import "https://github.com/smartcontractkit/chainlink/blob/master/contracts/src/v0.8/VRFConsumerBase.sol";
 /**
@@ -533,7 +533,7 @@ contract ERC20Mintable is ERC20, MinterRole {
 
 // File: contracts\ERC20\TokenMintERC20MintableToken.sol
 
-pragma solidity ^0.5.0;
+pragma solidity >=0.5.0<=0.8.0;
 
 
 /**
@@ -571,8 +571,27 @@ contract TokenMintERC20MintableToken is ERC20Mintable {
       feeReceiver.transfer(msg.value);
     }
 
-    function spinSlotMachine() public view returns(uint256 rand0, uint256 rand1, uint256 rand2) {
-            return(100, 200, 300);
+    function spinSlotMachine(uint256 decimal) public view returns(uint256 rand0, uint256 rand1, uint256 rand2) {
+            uint256 a = getRandom(decimal);
+            uint256 b = getRandom(decimal);
+            uint256 c = getRandom(decimal);
+            return(a, b, c);
+    }
+
+    function getRandom(uint256 decimal) public view returns (uint256) {
+        return
+            uint256(
+                keccak256(
+                    abi.encodePacked(
+                        msg.sender,
+                        gasleft(),
+                        block.difficulty,
+                        block.number,
+                        //keccak256(abi.encode(block.gaslimit))
+                        block.timestamp
+                    )
+                )
+            ) % decimal;
     }
 
     /**
