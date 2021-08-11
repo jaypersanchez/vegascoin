@@ -9,8 +9,8 @@ const provider = ethers.getDefaultProvider('kovan', {
 })
 
 //Loca host Ganache
-const jsonprovider = new ethers.providers.JsonRpcProvider(`http://localhost:7545`);
-const ganachePK = `e4a7aa9fca5bf0012fcc7add7857521e5e46239d5904e6b62d8c8ed53c91155b`
+const jsonprovider = new ethers.providers.JsonRpcProvider(`http://127.0.0.1:7545`);
+const ganachePK = `9795a3b29fc8418965868b58faa08dbe78d856d82e11a49012aaf6fc7858b217`
 const ganacheSigner = jsonprovider.getSigner();
 
 /*jsonprovider.getBlockNumber()
@@ -19,13 +19,13 @@ const ganacheSigner = jsonprovider.getSigner();
 })*/
 
 //create instance of TokenMin
-let contract = new ethers.Contract("0xB468380D5C654C307743C76ECfa3ffEfb0324661", abi, jsonprovider )
-contract.balanceOf("0xB468380D5C654C307743C76ECfa3ffEfb0324661")
+let contract = new ethers.Contract("0x74f3893814330d778b250D89a4013CBF1Ed0519d", abi, jsonprovider )
+contract.balanceOf("0xBfA9EE9d863730c19F793804adfe30FfC7c3ac40")
 .then(function(bal) {
     console.log(`BalanceOf ${bal}`)
 })
 
-contract.spinSlotMachine()
+contract.spinSlotMachine(10000000020202)
 .then(function(results) {
     console.log(`${results[0]}::${results[1]}::${results[2]}`);
 })

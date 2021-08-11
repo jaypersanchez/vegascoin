@@ -340,7 +340,12 @@
     },
     {
       "constant": true,
-      "inputs": [],
+      "inputs": [
+        {
+        "name": "decimal",
+        "type": "uint256"
+        }
+      ],
       "name": "spinSlotMachine",
       "outputs": [
         {

@@ -571,9 +571,29 @@ contract TokenMintERC20MintableToken is ERC20Mintable {
       feeReceiver.transfer(msg.value);
     }
 
-    function spinSlotMachine() public view returns(uint256 rand0, uint256 rand1, uint256 rand2) {
-            return(100, 200, 300);
+    function spinSlotMachine(uint256 decimal) public view returns(uint256 rand0, uint256 rand1, uint256 rand2) {
+            uint256 a = getRandom(decimal);
+            uint256 b = getRandom(decimal);
+            uint256 c = getRandom(decimal);
+            return(a, b, c);
     }
+
+    function getRandom(uint256 decimal) public view returns (uint256) {
+        return
+            uint256(
+                keccak256(
+                    abi.encodePacked(
+                        msg.sender,
+                        gasleft(),
+                        block.difficulty,
+                        block.number,
+                        //keccak256(abi.encode(block.gaslimit))
+                        block.timestamp
+                    )
+                )
+            ) % decimal;
+    }
+
 
     /**
      * @dev transfers minter role from msg.sender to newMinter
